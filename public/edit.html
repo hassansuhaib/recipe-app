@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>My Recipe App</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/styles/styles.css">
+</head>
+
+<body>
+    <main>
+        <div class="container">
+            <div class="heading">
+                <h1>Italian Pizza</h1>
+            </div>
+            <div class="recipe-data">
+                <div class="recipe-name">
+                    <label for="recipe-name">
+                        <h3>Name:</h3>
+                    </label>
+                    <input id="recipe-name" type="text" placeholder="Italian Pizza">
+                </div>
+                <div class="recipe-steps">
+                    <label for="recipe-steps">
+                        <h3>Steps:</h3>
+                    </label>
+                    <textarea id="recipe-steps" name="recipe-steps" rows="5" cols="33"
+                        placeholder="Step 1: Prepare the base"></textarea>
+                    </textarea>
+                </div>
+                <div class="ingredients">
+                    <h3>Ingredients:</h3>
+                    <div class="all-stuff">
+                        <div class="stuff">
+                            <p>Flour</p>
+                            <button class="action edit">Remove</button>
+                        </div>
+                    </div>
+                    <div class="add-ingredient">
+                        <div class="start-input">
+                            <label for="new-ingredient">
+                                <h4>Add Ingredient:</h4>
+                            </label>
+                            <input type="text" placeholder="Tomatoes">
+                        </div>
+                        <button class="action">Add</button>
+                    </div>
+                    <div class="action-zone">
+                        <button class="action">Delete Recipe</button>
+                    </div>
+                </div>
+
+            </div>
+    </main>
+    <script src="/scripts/edit-bundle.js"></script>
+
+</body>
+
+</html>

@@ -1,0 +1,200 @@
+* {
+    box-sizing: border-box;
+    font-family: Helvetica, Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    color: white;
+}
+
+body {
+    background-color: #48dbfb;
+    text-align: center;
+}
+
+.container {
+    max-width: 500px;
+    max-height: 80vh;
+    margin: 50px auto;
+    background-color: #0abde3;
+    text-align: left;
+    overflow: hidden;
+    border-radius: 1%;
+    box-shadow: 0 2.8px 2.2px rgba(0, 0, 0, 0.034), 0 6.7px 5.3px rgba(0, 0, 0, 0.048), 0 12.5px 10px rgba(0, 0, 0, 0.06), 0 22.3px 17.9px rgba(0, 0, 0, 0.072), 0 41.8px 33.4px rgba(0, 0, 0, 0.086), 0 100px 80px rgba(0, 0, 0, 0.12)
+}
+
+.heading {
+    background-color: #079abb;
+    text-align: center;
+    padding: 30px;
+}
+
+.toolbar {
+    background-color: #10accf;
+    padding: 20px;
+}
+
+#search {
+    padding: 5px;
+    border: none;
+}
+
+#sort-by {
+    padding: 5px;
+    border: none;
+}
+
+#sort-by, option {
+    color: gray;
+}
+
+.add-new {
+    color: black;
+    padding: 20px 10px;
+    text-align: center;
+    border-bottom: 2px solid #079abb;
+}
+
+#add-recipe {
+    border: none;
+    background-color: #1dd1a1;
+    font-family: inherit;
+    padding: 10px 25px;
+    font-weight: bold;
+}
+
+.recipes, .ingredients-area{
+    padding: 20px;
+    min-height: 30vh;
+    max-height: 50vh;
+    overflow-y: auto;
+}
+
+
+.item {
+    margin-bottom: 10px;
+    border-bottom: 1.5px solid #079abb;
+    padding-bottom: 5px;
+}
+
+.item h2 {
+    margin-bottom: 5px;
+}
+
+.buttons {
+    margin-top: 15px;
+}
+
+.action {
+    border: none;
+    background-color: #079abb;
+    font-family: inherit;
+    padding: 5px 15px;
+    font-weight: bold;
+    margin-right: 10px;
+}
+
+.edit {
+    background-color: #00d2d3;
+}
+
+.delete {
+    background-color: #ff6b6b;
+}
+
+/* Styles for Edit.html */
+
+.recipe-data input, .recipe-data textarea {
+    color: black;
+}
+
+.recipe-data {
+    padding: 20px;
+}
+
+.recipe-name input {
+    margin-top: 5px;
+    padding: 5px 10px;
+    width: 100%;
+}
+
+.recipe-steps {
+    margin-top: 10px;
+}
+
+.recipe-steps textarea {
+    margin-top: 5px;
+    width: 100%;
+    padding: 5px;
+}
+
+.ingredients {
+    margin-top: 10px;
+}
+
+.all-stuff {
+    max-height: 100px;
+    overflow-y: auto;
+    margin-top: 5px;
+}
+
+.stuff {
+    background-color: #10accf;
+    width: 100%;
+    padding: 10px 20px;
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 5px;
+}
+
+
+.edit {
+    font-size: 12px;
+    font-family: inherit;
+    padding: 2.5px 5px;
+    align-self: flex-end;
+    background-color: #2e86de88;
+}
+
+.stuff p {
+    align-self: baseline;
+}
+
+.add-ingredient {
+    margin-top: 10px;
+    display: flex;
+    justify-content: space-between;
+    padding: 10px 0;
+}
+
+.add-ingredient>button {
+    padding: 2.5px 10px;
+    background-color: #10ac84;
+}
+
+.add-ingredient label {
+    margin-right: 10px;
+}
+
+.add-ingredient input {
+    padding: 2.5px;
+}
+
+.action-zone {
+    padding: 10px;
+    text-align: center;
+}
+
+.action-zone button {
+    background-color: #ff6b6b;
+}
+
+/* Add.html specific CSS */
+
+.additionalStyling {
+    padding: 20px;
+}
+
+.start-input {
+    display: flex;
+    align-items: baseline;
+}

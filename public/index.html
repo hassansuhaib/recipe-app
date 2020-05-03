@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>My Recipe App</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="/styles/styles.css">
+    </head>
+    <body>
+        <main>
+            <div class="container">
+                <div class="heading">
+                    <h1>My Recipes</h1>
+                </div>
+                <div class="toolbar">
+                    <label for="search">Search: </label>
+                    <input id="search" type="text" placeholder="e.g. Homemade Tacos">
+                    <label for="sort-by">Sort By: </label>
+                    <select name="sort-by" id="sort-by">
+                        <option value="byEdited">Last Edited</option>
+                        <option value="byAdded">Newly Added</option>
+                        <option value="byAlpha">Alphabetical</option>
+                    </select>
+                </div>
+                <div class="add-new">
+                    <button id="add-recipe">Add New Recipe</button>
+                </div>
+                    <div class="recipes">
+                        <div class="item">
+                            <h2>Lasagna</h2>
+                            <p>You have all ingredients for it.</p>
+                            <p>Created 3 days ago</p>
+                            <div class="buttons">
+                                <button class="action edit">Edit</button>
+                                <button class="action delete">Delete</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+        <script src="/scripts/index-bundle.js"></script>
+    </body>
+</html>
