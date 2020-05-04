@@ -44,12 +44,13 @@ const createRecipe = () => {
     return recipe.id
 }
 
-const updateRecipe = (recipeId, newRecipe) => {
-    const index = recipes.findIndex((item) => item.id === recipeId)
-    if(!recipe) {
+const updateRecipe = (newRecipe) => {
+    const index = recipes.findIndex((item) => item.id === newRecipe.id)
+    if(index === null) {
         return
     }
-    recipes.splice(index, 1, {...newRecipe})    
+    recipes.splice(index, 1, {...newRecipe})
+    saveRecipes() 
 }
 
 // To sort the recipes by different criteria 
@@ -88,7 +89,11 @@ const sortRecipes = (sortBy) => {
     saveRecipes()
 }
 
+const getRecipeById = (recipeId) => {
+    return recipes.find((recipe) => recipe.id === recipeId)
+}
+
 // For initially loading all the recipe objects on to the Recipe array
 recipes = loadRecipes()
 
-export { saveRecipes, getRecipes, removeRecipe, createRecipe, sortRecipes, updateRecipe }
+export { saveRecipes, getRecipes, removeRecipe, createRecipe, sortRecipes, updateRecipe, getRecipeById }

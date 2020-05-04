@@ -17,15 +17,14 @@ const saveIngredients = () => {
 
 const getIngredients = () => ingredients
 
-const createIngredient = () => {
+const createIngredient = (name) => {
     const newIngredient = {
         id: uuidv4(),
-        name: '',
+        name: name,
         createdAt: moment().valueOf()
     }
     ingredients.push(newIngredient)
     saveIngredients()
-    return newIngredient.id
 }
 
 const removeIngredient = (id) => {

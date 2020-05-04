@@ -7,7 +7,7 @@
 }
 
 body {
-    background-color: #48dbfb;
+    background-color: #00d2d3;
     text-align: center;
 }
 
@@ -54,21 +54,21 @@ body {
     border-bottom: 2px solid #079abb;
 }
 
-#add-recipe {
+.add-button-top {
     border: none;
     background-color: #1dd1a1;
     font-family: inherit;
     padding: 10px 25px;
     font-weight: bold;
+    margin: 0 10px;
 }
 
-.recipes, .ingredients-area{
+.recipes, .ingredients-area {
     padding: 20px;
     min-height: 30vh;
     max-height: 50vh;
     overflow-y: auto;
 }
-
 
 .item {
     margin-bottom: 10px;
@@ -146,15 +146,6 @@ body {
     margin-bottom: 5px;
 }
 
-
-.edit {
-    font-size: 12px;
-    font-family: inherit;
-    padding: 2.5px 5px;
-    align-self: flex-end;
-    background-color: #2e86de88;
-}
-
 .stuff p {
     align-self: baseline;
 }
@@ -184,8 +175,10 @@ body {
     text-align: center;
 }
 
-.action-zone button {
+.remove {
     background-color: #ff6b6b;
+    padding: 2.5px 5px;
+    font-size: 12px;
 }
 
 /* Add.html specific CSS */
