@@ -1,5 +1,3 @@
-import { renderRecipes, renderIngredients } from './views'
-
 let filters = {
     searchText: '',
     sortBy: 'byCreated'

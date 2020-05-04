@@ -1,4 +1,5 @@
 import { v4 as uuidv4 } from 'uuid'
+import moment from 'moment'
 
 let ingredients = []
 
@@ -12,7 +13,7 @@ const loadIngredients = () => {
 }
 
 const saveIngredients = () => {
-    location.setItem('ingredients', JSON.stringify(ingredients))
+    localStorage.setItem('ingredients', JSON.stringify(ingredients))
 }
 
 const getIngredients = () => ingredients

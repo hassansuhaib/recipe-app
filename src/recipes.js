@@ -1,5 +1,5 @@
 import { v4 as uuidv4 } from 'uuid'
-import { moment } from 'moment'
+import moment from 'moment'
 
 let recipes = []
 
@@ -37,7 +37,7 @@ const createRecipe = () => {
         modifiedAt: now,
         name: 'My New Recipe',
         ingredients: [],
-        text: ''
+        text: 'Steps'
     }
     recipes.push(recipe)
     saveRecipes()
@@ -46,9 +46,6 @@ const createRecipe = () => {
 
 const updateRecipe = (newRecipe) => {
     const index = recipes.findIndex((item) => item.id === newRecipe.id)
-    if(index === null) {
-        return
-    }
     recipes.splice(index, 1, {...newRecipe})
     saveRecipes() 
 }
@@ -93,7 +90,14 @@ const getRecipeById = (recipeId) => {
     return recipes.find((recipe) => recipe.id === recipeId)
 }
 
+const removeSingleIngredient = (name, recipeId) => {
+    const thisRecipe = getRecipeById(recipeId)
+    const indexIngredient = thisRecipe.ingredients.findIndex((item) => item === name)
+    thisRecipe.ingredients.splice(indexIngredient, 1)
+    updateRecipe(thisRecipe)
+}
+
 // For initially loading all the recipe objects on to the Recipe array
 recipes = loadRecipes()
 
-export { saveRecipes, getRecipes, removeRecipe, createRecipe, sortRecipes, updateRecipe, getRecipeById }
+export { saveRecipes, getRecipes, removeRecipe, createRecipe, sortRecipes, updateRecipe, getRecipeById, removeSingleIngredient }

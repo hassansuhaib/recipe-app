@@ -1,37 +1,47 @@
-import { renderIngredients, renderEditItems } from './views'
+import { renderEditItems } from './views'
 import { updateFilters } from './filters'
 import { createIngredient } from './ingredients'
 
-renderIngredients()
+renderEditItems()
 
 // Selecting all the required elements from the DOM
 const searchInput = document.querySelector('#search')
 const selectInput = document.querySelector('#sort-by')
 const addNewIngredient = document.querySelector('#add-new-ingredient')
 const addNewButton = document.querySelector('#add-new-to-inventory')
-const ingredientName
+let ingredientName = ''
 
 searchInput.addEventListener('input', (e) => {
     updateFilters({
         searchText: e.target.value
     })
-    renderIngredients()
+    renderEditItems()
 })
+
 selectInput.addEventListener('change', (e) => {
     updateFilters({
         sortBy: e.target.value
     })
-    renderIngredients()
+    renderEditItems()
 })
 
 addNewIngredient.addEventListener('input', (e) => {
     ingredientName = e.target.value
 })
 
+addNewIngredient.addEventListener('keyup', (e) => {
+    if(e.keyCode === 13) {
+        addNewButton.click()
+    }
+})
+
 addNewButton.addEventListener('click', () => {
     createIngredient(ingredientName)
+    addNewIngredient.value = ''
     renderEditItems()
 })
+
+
 
 window.addEventListener('storage', (e) => {
     if(e.key === 'ingredients') {

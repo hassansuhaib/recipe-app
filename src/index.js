@@ -1,6 +1,6 @@
 import { renderRecipes } from './views'
 import { updateFilters } from './filters'
-import { createIngredient } from './ingredients'
+import { createRecipe } from './recipes'
 
 
 renderRecipes()
@@ -9,7 +9,7 @@ renderRecipes()
 const searchInput = document.querySelector('#search')
 const selectInput = document.querySelector('#sort-by')
 const addRecipeButton = document.querySelector('#add-recipe')
-const addIngredientButton = document.querySelector('#add-ingredient')
+const addIngredientButtonIndex = document.querySelector('#add-ingredient-index')
 
 // Adding event listeners to the DOM Elements
 searchInput.addEventListener('input', (e) => {
@@ -18,6 +18,7 @@ searchInput.addEventListener('input', (e) => {
     })
     renderRecipes()
 })
+
 selectInput.addEventListener('change', (e) => {
     updateFilters({
         sortBy: e.target.value
@@ -30,7 +31,7 @@ addRecipeButton.addEventListener('click', () => {
     location.assign(`/edit.html#${id}`)
 })
 
-addIngredientButton.addEventListener('click', () => {
+addIngredientButtonIndex.addEventListener('click', () => {
     location.assign(`/add.html`)
 })
 

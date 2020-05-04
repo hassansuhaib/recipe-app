@@ -191,3 +191,11 @@ body {
     display: flex;
     align-items: baseline;
 }
+
+#add-new-ingredient {
+    color: black;
+}
+
+.in-add {
+    margin-bottom: 20px;
+}

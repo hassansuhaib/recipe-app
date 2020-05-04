@@ -1,7 +1,7 @@
-import { getRecipes, removeRecipe, sortRecipes, getRecipeById } from './recipes'
+import { getRecipes, removeRecipe, sortRecipes, getRecipeById, removeSingleIngredient } from './recipes'
 import { getIngredients, sortIngredients, removeIngredient } from './ingredients'
 import { getFilters } from './filters'
-import { moment } from 'moment'
+import moment from 'moment'
 
 // getting data from respective files to use here
 const recipes = getRecipes()
@@ -10,12 +10,12 @@ const filters = getFilters()
 
 // Selecting DOM Elements for rendering
 const recipesDiv = document.querySelector('.recipes')
-const editTngredientsDiv = document.querySelector('.ingredients-area')
+const editIngredientsDiv = document.querySelector('.ingredients-area')
 const ingredientsDiv = document.querySelector('.all-stuff')
 
 
 // Generating a single recipe object to be visible in DOM
-const generateRecipeDOM = ({ id, modifiedAt, name, ingredientsRecipe }) => {
+const generateRecipeDOM = ({ id, modifiedAt, name, ingredients:ingredientsRecipe }) => {
 
     // Creating all the required DOM elements for a recipe object
     const divItem = document.createElement('div')
@@ -68,14 +68,14 @@ const generateRecipeDOM = ({ id, modifiedAt, name, ingredientsRecipe }) => {
 
 }
 
-const generateIngredientDOM = (name, isEdit) => {
+const generateIngredientDOM = (name, id, isEdit) => {
     // Creating all the required ingredients elements for a recipe object
 
     const divItem = document.createElement('div')
-    const heading = document.createElement('h3')
+    const heading = document.createElement('p')
 
     // Applying classes of Styling to these elements
-    divItem.classList.add('item')    
+    divItem.classList.add('stuff')    
     
     // Now Setting all the data to these elements
     heading.textContent = name
@@ -87,11 +87,12 @@ const generateIngredientDOM = (name, isEdit) => {
     if (isEdit) {
         const divButton = document.createElement('div')
         const buttonDelete = document.createElement('button')
+        buttonDelete.textContent = 'Remove'
 
         divButton.classList.add('buttons')
-        buttonDelete.classList.add('action', 'delete')
+        buttonDelete.classList.add('action', 'remove')
 
-        buttonDelete.addEventListener('Click', removeRecipe(id))
+        buttonDelete.addEventListener('Click', removeSingleIngredient(name, id))
         divButton.appendChild(buttonDelete)
         divItem.appendChild(divButton)
     }
@@ -102,20 +103,27 @@ const generateIngredientDOM = (name, isEdit) => {
 
 const generateEditItems = ({name, createdAt, id}) => {
     const outerDiv = document.createElement('div')
+    const buttonDiv = document.createElement('div')
     const itemName = document.createElement('h3')
-    const info = document.querySelector('p')
+    const info = document.createElement('p')
     const removeButton = document.createElement('button')
 
-    outerDiv.classList.add('stuff')
+    buttonDiv.classList.add('buttons')
+    outerDiv.classList.add('item')
     removeButton.classList.add('action', 'remove')
-    removeButton.addEventListener('click', removeIngredient(id))
+    removeButton.textContent = 'Remove'
+    removeButton.addEventListener('click', (e) => {
+        removeIngredient(id)
+        renderEditItems()
+    })
 
     itemName.textContent = name
-    info.textContent = `Created ${moment().from(createdAt)}.`
+    info.textContent = `Created ${moment(createdAt).fromNow()}.`
 
+    buttonDiv.appendChild(removeButton)
     outerDiv.appendChild(itemName)
     outerDiv.appendChild(info)
-    outerDiv.appendChild(removeButton)
+    outerDiv.appendChild(buttonDiv)
 
     editIngredientsDiv.appendChild(outerDiv)
 
@@ -135,13 +143,14 @@ const renderRecipes = () => {
     }
 }
 
-// To render ingredients of a reciep on the edit.html page
+// To render ingredients of a recipe on the edit.html page
 const renderIngredients = (recipeId, isEdit) => {
+    ingredientsDiv.innerHTML = ''
     const recipe = recipes.find((item) => recipeId === item.id)
     if (recipe) {
-        ingredients.sort()
+        recipe.ingredients.sort()
         recipe.ingredients.forEach((item) => {
-            generateIngredientDOM(item, isEdit)
+            generateIngredientDOM(item, recipe.id, isEdit)
         })
     } else {
         ingredientsDiv.innerHTML = `<p>No ingredients to show.</p>`
@@ -151,20 +160,21 @@ const renderIngredients = (recipeId, isEdit) => {
 
 //To render ingredients on the add.html page
 const renderEditItems = () => {
+    editIngredientsDiv.innerHTML = ''
     sortIngredients(filters.sortBy)
-    if(ingredients) {
+    if(ingredients.length > 0) {
         ingredients.forEach((item) => {
             generateEditItems(item)
         })
     } else {
-        editTngredientsDiv.innerHTML = `<h3>No ingredients in your inventory.</h3>`
+        editIngredientsDiv.innerHTML = `<h3>No ingredients in your inventory.</h3>`
     }
 }
 
 // Initializes the edit page with already present info of the recipe
 
 const initializeEditPage = (recipeId, isEdit) => {
-    const heading = document.querySelector('.heading')
+    const heading = document.querySelector('.heading h1')
     const inputName = document.querySelector('#recipe-name')
     const textArea = document.querySelector('#recipe-steps')
 
