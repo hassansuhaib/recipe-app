@@ -12,4 +12,4 @@
 * When user clicks the edit button, a new page opens up where the name, step and ingredients can be modified.
 
 **Working of the Ingredients Page:**
-* When the users adds or delete and ingredient, it is modified on the local storage.
+* When the users adds or deletes an ingredient, it is modified on the local storage.
