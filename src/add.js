@@ -9,6 +9,7 @@ const searchInput = document.querySelector('#search')
 const selectInput = document.querySelector('#sort-by')
 const addNewIngredient = document.querySelector('#add-new-ingredient')
 const addNewButton = document.querySelector('#add-new-to-inventory')
+const saveIngredient = document.querySelector('#save-ingredient')
 let ingredientName = ''
 
 searchInput.addEventListener('input', (e) => {
@@ -41,6 +42,9 @@ addNewButton.addEventListener('click', () => {
     renderEditItems()
 })
 
+saveIngredient.addEventListener('click', () => {
+    location.assign('/index.html')
+})
 
 
 window.addEventListener('storage', (e) => {

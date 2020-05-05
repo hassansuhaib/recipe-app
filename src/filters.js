@@ -6,10 +6,10 @@ let filters = {
 
 const updateFilters = ({searchText, sortBy}) => {
     if(typeof searchText === 'string') {
-        filters.searchText = searchText
+        filters.searchText = searchText.toLowerCase()
     }
     if(typeof sortBy === 'string') {
-        filters.sortyBy = sortBy
+        filters.sortBy = sortBy
     }
 }
 

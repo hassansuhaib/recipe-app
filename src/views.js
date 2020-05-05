@@ -3,11 +3,6 @@ import { getIngredients, sortIngredients, removeIngredient } from './ingredients
 import { getFilters } from './filters'
 import moment from 'moment'
 
-// getting data from respective files to use here
-const recipes = getRecipes()
-const ingredients = getIngredients()
-const filters = getFilters()
-
 // Selecting DOM Elements for rendering
 const recipesDiv = document.querySelector('.recipes')
 const editIngredientsDiv = document.querySelector('.ingredients-area')
@@ -32,25 +27,36 @@ const generateRecipeDOM = ({ id, modifiedAt, name, ingredients:ingredientsRecipe
     buttonEdit.classList.add('action', 'edit')
     buttonDelete.classList.add('action', 'delete')
 
+    buttonEdit.textContent = 'Edit'
+    buttonDelete.textContent = 'Delete'
+
     // Adding event listeners to specific elements
-    heading.addEventListener('click', location.assign(`/recipe.html#${id}`))
-    buttonEdit.addEventListener('click', location.assign(`/edit.html#${id}`))
-    buttonDelete.addEventListener('Click', () => { 
+    heading.addEventListener('click', () => { location.assign(`/recipe.html#${id}`) })
+    buttonEdit.addEventListener('click', () => { location.assign(`/edit.html#${id}`) })
+    buttonDelete.addEventListener('click', () => { 
         removeRecipe(id)
         renderRecipes()
     })
 
     // Now Setting all the data to these elements
     heading.textContent = name
+    const ingredients = getIngredients()
 
+    // This logic is implemented to show the number of available 
+    // ingredients for the recipe in the ingredients inventory
+    
     // To check the availability of ingredients
-    const noOfAvailable = ingredientsRecipe.reduce((sum = 0, currentItem) => {
-        return ingredients.includes(currentItem) ? sum++ : sum
-    })
+    let noOfAvailable = 0
+    if(ingredientsRecipe.length > 0) {
+        ingredients.forEach((item) => {
+            ingredientsRecipe.includes(item.name) ? noOfAvailable++ : noOfAvailable
+        })
+    }
+    
 
     // If all ingredients are present than return true, else false
-    const isAll = noOfAvailable === ingredientsRecipe.length ? true : false
-    ingredientsInfo.innerHTML = `You have ${isAll === true ? 'all' : noOfAvailable} ingredients for it.`
+    const isAll = noOfAvailable === ingredientsRecipe.length ? true : false   
+    ingredientsInfo.innerHTML = `You have ${isAll === true ? 'all' : noOfAvailable} ingredient${noOfAvailable === 1 ? '' : 's'} for it.`
 
     // Shows time of modification
     info.innerHTML = `Modified ${moment(modifiedAt).fromNow()}`
@@ -60,7 +66,7 @@ const generateRecipeDOM = ({ id, modifiedAt, name, ingredients:ingredientsRecipe
     divButton.appendChild(buttonDelete)
 
     divItem.appendChild(heading)
-    divItem.appendChild(ingredients)
+    divItem.appendChild(ingredientsInfo)
     divItem.appendChild(info)
     divItem.appendChild(divButton)
 
@@ -73,11 +79,11 @@ const generateIngredientDOM = (name, id, isEdit) => {
 
     const divItem = document.createElement('div')
     const heading = document.createElement('p')
+    const available = document.createElement('p')
 
     // Applying classes of Styling to these elements
     divItem.classList.add('stuff')    
-    
-    // Now Setting all the data to these elements
+
     heading.textContent = name
 
     // Appending all the stuff in the right order
@@ -89,12 +95,27 @@ const generateIngredientDOM = (name, id, isEdit) => {
         const buttonDelete = document.createElement('button')
         buttonDelete.textContent = 'Remove'
 
-        divButton.classList.add('buttons')
         buttonDelete.classList.add('action', 'remove')
 
-        buttonDelete.addEventListener('Click', removeSingleIngredient(name, id))
+        buttonDelete.addEventListener('click', () => { 
+            removeSingleIngredient(name, id)
+            renderIngredients(id, isEdit)
+        })
         divButton.appendChild(buttonDelete)
         divItem.appendChild(divButton)
+    } else {
+        // Setting available or not available
+        const ingredients = getIngredients()
+        const isAvailable = ingredients.find((item) => item.name === name)
+        if (isAvailable) {
+            available.textContent = 'Available'
+            available.style.color = 'rgba(0, 255, 0, 0.7)'
+        } else {
+            available.textContent = 'Not Available'
+            available.style.color = 'rgba(255, 0, 0, 0.7)'
+        }
+
+        divItem.appendChild(available)
     }
 
     ingredientsDiv.appendChild(divItem)
@@ -131,9 +152,12 @@ const generateEditItems = ({name, createdAt, id}) => {
 
 // To render all the recipes on the index.html page
 const renderRecipes = () => {
+    const recipes = getRecipes()
+    const filters = getFilters()
+    recipesDiv.innerHTML = ''
     sortRecipes(filters.sortBy)
 
-    const refinedResult = recipes.filter((recipe) => recipe.name.includes(filters.searchText))
+    const refinedResult = recipes.filter((recipe) => recipe.name.toLowerCase().includes(filters.searchText))
     if (refinedResult) {
         refinedResult.forEach((recipe) => {
             generateRecipeDOM(recipe)
@@ -146,8 +170,9 @@ const renderRecipes = () => {
 // To render ingredients of a recipe on the edit.html page
 const renderIngredients = (recipeId, isEdit) => {
     ingredientsDiv.innerHTML = ''
+    const recipes = getRecipes()
     const recipe = recipes.find((item) => recipeId === item.id)
-    if (recipe) {
+    if (recipe.ingredients.length > 0) {
         recipe.ingredients.sort()
         recipe.ingredients.forEach((item) => {
             generateIngredientDOM(item, recipe.id, isEdit)
@@ -160,10 +185,13 @@ const renderIngredients = (recipeId, isEdit) => {
 
 //To render ingredients on the add.html page
 const renderEditItems = () => {
+    const ingredients = getIngredients()
     editIngredientsDiv.innerHTML = ''
+    const filters = getFilters()
     sortIngredients(filters.sortBy)
-    if(ingredients.length > 0) {
-        ingredients.forEach((item) => {
+    const refinedResult = ingredients.filter((item) => item.name.toLowerCase().includes(filters.searchText))
+    if(refinedResult.length > 0) {
+        refinedResult.forEach((item) => {
             generateEditItems(item)
         })
     } else {
@@ -181,7 +209,7 @@ const initializeEditPage = (recipeId, isEdit) => {
     const thisRecipe = getRecipeById(recipeId)
 
     heading.textContent = thisRecipe.name
-    inputName.textContent = thisRecipe.name
+    inputName.value = thisRecipe.name
     textArea.textContent = thisRecipe.text
 
     renderIngredients(recipeId, isEdit)

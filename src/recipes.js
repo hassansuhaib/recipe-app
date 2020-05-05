@@ -46,6 +46,7 @@ const createRecipe = () => {
 
 const updateRecipe = (newRecipe) => {
     const index = recipes.findIndex((item) => item.id === newRecipe.id)
+    newRecipe.modifiedAt = moment().valueOf()
     recipes.splice(index, 1, {...newRecipe})
     saveRecipes() 
 }
@@ -55,9 +56,9 @@ const sortRecipes = (sortBy) => {
     if (sortBy === 'byEdited') {
         recipes.sort((a, b) => {
             if (a.modifiedAt > b.modifiedAt) {
-                return 1
-            } else if (a.modifiedAt < b.modifiedAt) {
                 return -1
+            } else if (a.modifiedAt < b.modifiedAt) {
+                return 1
             } else {
                 return 0
             }
@@ -65,14 +66,14 @@ const sortRecipes = (sortBy) => {
     } else if (sortBy === 'byCreated') {
         recipes.sort((a, b) => {
             if (a.createdAt > b.createdAt) {
-                return 1
-            } else if (a.createdAt < b.createdAt) {
                 return -1
+            } else if (a.createdAt < b.createdAt) {
+                return 1
             } else {
                 return 0
             }
         })
-    } else if (sortBy === 'byAlphabetical') {
+    } else if (sortBy === 'byAlpha') {
         recipes.sort((a,b) => {
             if (a.name > b.name) {
                 return 1

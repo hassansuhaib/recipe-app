@@ -50,8 +50,9 @@ deleteButton.addEventListener('click', (e) => {
 }) 
 
 addIngredientButton.addEventListener('click', (e) => {
-    updateRecipeIngredient(newIngredientValue)
-    console.log(thisRecipe.ingredients)
+    thisRecipe.ingredients.push(newIngredientValue)
+    updateRecipe(thisRecipe)
+    newIngredient.value = ''
     renderIngredients(thisRecipe.id, true)
 })
 
@@ -61,7 +62,4 @@ window.addEventListener('storage', (e) => {
     }
 })
 
-const updateRecipeIngredient = (item) =>{
-    thisRecipe.ingredients.push(item)
-}
 

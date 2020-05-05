@@ -21,7 +21,7 @@ const getIngredients = () => ingredients
 const createIngredient = (name) => {
     const newIngredient = {
         id: uuidv4(),
-        name: name,
+        name: name.charAt(0).toUpperCase() + name.slice(1),
         createdAt: moment().valueOf()
     }
     ingredients.push(newIngredient)
@@ -34,17 +34,17 @@ const removeIngredient = (id) => {
 }
 
 const sortIngredients = (sortBy) => {
-    if (sortBy === 'byAdded') {
+    if (sortBy === 'byCreated') {
         ingredients.sort((a, b) => {
             if (a.createdAt > b.createdAt) {
-                return 1
-            } else if (a.createdAt < b.createdAt) {
                 return -1
+            } else if (a.createdAt < b.createdAt) {
+                return 1
             } else {
                 return 0
             }
         })
-    } else if (sortBy === 'byAlphabetical') {
+    } else if (sortBy === 'byAlpha') {
         ingredients.sort((a, b) => {
             if (a.name > b.name) {
                 return 1

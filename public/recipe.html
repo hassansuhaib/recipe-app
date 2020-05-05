@@ -14,17 +14,21 @@
                 <h1>Italian Pizza</h1>
             </div>
             <div class="recipe-data">
+                <div>
+                    <button id="home" class="action">Home</button>
+                </div>
                 <div class="recipe-steps">
                     <h3>Steps:</h3>
-                    <p id="steps"></p>
+                    <textarea id="recipe-steps" name="recipe-steps" rows="5" cols="33" placeholder="No steps to show"></textarea>
+                    </textarea>
                 </div>
                 <div class="ingredients">
                     <h3>Ingredients:</h3>
                     <div class="all-stuff">
                     </div>
                     <div class="action-zone">
-                        <button class="action">Delete Recipe</button>
-                        <button class="action">Edit Recipe</button>
+                        <button id="edit-recipe" class="action edit">Edit Recipe</button>
+                        <button id="delete-recipe" class="action delete">Delete Recipe</button>
                     </div>
                 </div>
 

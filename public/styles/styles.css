@@ -36,6 +36,7 @@ body {
 #search {
     padding: 5px;
     border: none;
+    color: black;
 }
 
 #sort-by {
@@ -61,9 +62,10 @@ body {
     padding: 10px 25px;
     font-weight: bold;
     margin: 0 10px;
+    min-width: 150px;
 }
 
-.recipes, .ingredients-area {
+.recipes {
     padding: 20px;
     min-height: 30vh;
     max-height: 50vh;
@@ -81,7 +83,8 @@ body {
 }
 
 .buttons {
-    margin-top: 15px;
+    margin-top: 10px;
+    margin-bottom: 5px;
 }
 
 .action {
@@ -100,6 +103,7 @@ body {
 .delete {
     background-color: #ff6b6b;
 }
+
 
 /* Styles for Edit.html */
 
@@ -143,6 +147,7 @@ body {
     padding: 10px 20px;
     display: flex;
     justify-content: space-between;
+    align-items: baseline;
     margin-bottom: 5px;
 }
 
@@ -177,7 +182,7 @@ body {
 
 .remove {
     background-color: #ff6b6b;
-    padding: 2.5px 5px;
+    padding: 5px 5px;
     font-size: 12px;
 }
 
@@ -198,4 +203,11 @@ body {
 
 .in-add {
     margin-bottom: 20px;
+}
+
+.ingredients-area {
+    padding: 20px;
+    min-height: 30vh;
+    max-height: 40vh;
+    overflow-y: auto;
 }
